@@ -22,25 +22,11 @@ SDL_Renderer* gRenderer = nullptr;
 
 void draw()
 {
-    // Draw a box that has different colored lines on each edge.
-    // The center of the box should align with the center of the screen.
-    int size = 350;
-    SDL_SetRenderDrawColor(gRenderer, 0xFF /*R*/, 0x00 /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-            ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) - (size/ 2)));
-
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0xFF /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0x00 /*G*/, 0xFF /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) + (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0x00 /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
+    // create a square drawing function that takes 2 parameters:
+    // the x and y coordinates of the square's top left corner
+    // and draws a 50x50 square from that point.
+    // draw at least 3 squares with that function.
+    // avoid code duplication.
 }
 
 bool init()
@@ -53,7 +39,7 @@ bool init()
     }
 
     //Create window
-    gWindow = SDL_CreateWindow( "Colored Box", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "Position square", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if( gWindow == nullptr )
     {
         std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;

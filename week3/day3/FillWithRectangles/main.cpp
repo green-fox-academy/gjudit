@@ -1,12 +1,13 @@
+// Exercise:
+// draw four different size and color rectangles.
+// avoid code duplication.
+
 #include <iostream>
 #include <SDL.h>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-
-//Draws geometry on the canvas
-void draw();
 
 //Starts up SDL and creates window
 bool init();
@@ -20,29 +21,6 @@ SDL_Window* gWindow = nullptr;
 //The window renderer
 SDL_Renderer* gRenderer = nullptr;
 
-void draw()
-{
-    // Draw a box that has different colored lines on each edge.
-    // The center of the box should align with the center of the screen.
-    int size = 350;
-    SDL_SetRenderDrawColor(gRenderer, 0xFF /*R*/, 0x00 /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-            ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) - (size/ 2)));
-
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0xFF /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0x00 /*G*/, 0xFF /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) + (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0x00 /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-}
-
 bool init()
 {
     //Initialize SDL
@@ -53,7 +31,7 @@ bool init()
     }
 
     //Create window
-    gWindow = SDL_CreateWindow( "Colored Box", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "Four rectangles", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if( gWindow == nullptr )
     {
         std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
@@ -115,7 +93,16 @@ int main( int argc, char* args[] )
         SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(gRenderer);
 
-        draw();
+        //--------------------------------------------
+        //This is where you can start drawing geometry
+        //--------------------------------------------
+        int size = 450;
+        for (int i = 50; i <= 200; i += 50){
+            SDL_SetRenderDrawColor(gRenderer, (0 + i) , (0 + i) , (0 + i), (0 + i) );
+            SDL_Rect fillRect = { ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)), size, size};
+            SDL_RenderFillRect( gRenderer, &fillRect );
+            size -= 100;
+        }
 
         //Update screen
         SDL_RenderPresent(gRenderer);

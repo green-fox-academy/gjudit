@@ -22,25 +22,11 @@ SDL_Renderer* gRenderer = nullptr;
 
 void draw()
 {
-    // Draw a box that has different colored lines on each edge.
-    // The center of the box should align with the center of the screen.
-    int size = 350;
-    SDL_SetRenderDrawColor(gRenderer, 0xFF /*R*/, 0x00 /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-            ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) - (size/ 2)));
-
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0xFF /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0x00 /*G*/, 0xFF /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) + (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) + (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
-
-    SDL_SetRenderDrawColor(gRenderer, 0x00 /*R*/, 0x00 /*G*/, 0x00 /*B*/, 0xFF /*A*/);
-    SDL_RenderDrawLine(gRenderer, ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)) ,
-                       ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) + (size/ 2)));
+    // Draw a green 100x100 square to the canvas' center.
+    int size = 100;
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0x00);
+    SDL_Rect fillRect = { ((SCREEN_WIDTH / 2) - (size / 2)), ((SCREEN_HEIGHT / 2) - (size / 2)), size, size};
+    SDL_RenderFillRect( gRenderer, &fillRect );
 }
 
 bool init()
@@ -53,7 +39,7 @@ bool init()
     }
 
     //Create window
-    gWindow = SDL_CreateWindow( "Colored Box", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "Centered square", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if( gWindow == nullptr )
     {
         std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
