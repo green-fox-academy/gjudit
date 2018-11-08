@@ -22,23 +22,10 @@ SDL_Renderer* gRenderer = nullptr;
 
 void draw()
 {
-    // create a square drawing function that takes 2 parameters:
-    // the x and y coordinates of the square's top left corner
-    // and draws a 50x50 square from that point.
-    // draw at least 3 squares with that function.
-    // avoid code duplication.
-
-    int size = 50;
-    int x = 111;
-    int y = 111;
-
-    for (int i = 50; i <= 200; i += 50){
-        SDL_SetRenderDrawColor(gRenderer, (0 + i) , (0 + i) , (0 + i), (0 + i) );
-        SDL_Rect fillRect = { x, y, size, size};
-        SDL_RenderFillRect( gRenderer, &fillRect );
-        x += size + size;
-        y += size + size;
-    }
+    // Reproduce this:
+    // [https://github.com/green-fox-academy/teaching-materials/blob/master/workshop/drawing/purple-steps-3d/r4.png]
+    // Pay attention for the outlines as well
+    
 }
 
 bool init()
@@ -51,7 +38,7 @@ bool init()
     }
 
     //Create window
-    gWindow = SDL_CreateWindow( "Position square", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "Purple steps 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if( gWindow == nullptr )
     {
         std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;

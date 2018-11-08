@@ -22,23 +22,25 @@ SDL_Renderer* gRenderer = nullptr;
 
 void draw()
 {
-    // create a square drawing function that takes 2 parameters:
-    // the x and y coordinates of the square's top left corner
-    // and draws a 50x50 square from that point.
-    // draw at least 3 squares with that function.
-    // avoid code duplication.
+    // Create a square drawing function that takes 2 parameters:
+    // The square size, and the fill color,
+    // and draws a square of that size and color to the center of the canvas.
+    // Create a loop that fills the canvas with rainbow colored squares.
 
-    int size = 50;
-    int x = 111;
-    int y = 111;
+    int colour[21] = {148, 0, 211, 75, 0, 130, 0, 0, 255, 0, 255, 0, 255, 255, 0, 255, 127, 0, 255, 0 , 0};
+    int size = SCREEN_HEIGHT;
+    int colcount = 0;
 
-    for (int i = 50; i <= 200; i += 50){
-        SDL_SetRenderDrawColor(gRenderer, (0 + i) , (0 + i) , (0 + i), (0 + i) );
-        SDL_Rect fillRect = { x, y, size, size};
-        SDL_RenderFillRect( gRenderer, &fillRect );
-        x += size + size;
-        y += size + size;
+    for(int i = 0; i < 48; i++){
+        SDL_SetRenderDrawColor(gRenderer, colour[colcount], colour[colcount + 1], colour[colcount+2], 0);
+        colcount += 3;
+        SDL_Rect rainbow = { ((SCREEN_WIDTH / 2) - (size/2)), ((SCREEN_HEIGHT / 2) - (size / 2)), size, size};
+        SDL_RenderFillRect(gRenderer, &rainbow);
+        size -=10;
+        if (colcount >= 21)
+            colcount = 0;
     }
+
 }
 
 bool init()
@@ -51,7 +53,7 @@ bool init()
     }
 
     //Create window
-    gWindow = SDL_CreateWindow( "Position square", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "Rainbow box function", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if( gWindow == nullptr )
     {
         std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
