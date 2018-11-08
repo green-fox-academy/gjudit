@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
+const int SCREEN_WIDTH = 480;
 const int SCREEN_HEIGHT = 480;
 
 //Draws geometry on the canvas
@@ -22,23 +22,30 @@ SDL_Renderer* gRenderer = nullptr;
 
 void draw()
 {
-    // Reproduce this:
-    // [https://github.com/green-fox-academy/teaching-materials/blob/master/workshop/drawing/purple-steps-3d/r4.png]
-    // Pay attention for the outlines as well
-    int size = 20;
-    int x = size;
-    int y = size;
-
-    for(int i = 0; i < 6; i++){
-        SDL_SetRenderDrawColor(gRenderer, 128, 0, 128, 0);
-        SDL_Rect square = {x, y, size, size};
-        SDL_RenderFillRect(gRenderer, &square);
-        SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);
-        SDL_RenderDrawRect(gRenderer, &square);
-        x += size;
+    // Fill the canvas with a checkerboard pattern.
+    int howMany = 40;
+    int size = SCREEN_WIDTH / howMany;
+    int x = 0;
+    int y = 0;
+    for(int j = 0; j < howMany; j++){
+        for (int i = 0; i < (howMany / 2); i++){
+            SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 0);
+            SDL_Rect rect = {x, y, size, size};
+            SDL_RenderFillRect(gRenderer, &rect);
+            x += size;
+            SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);
+            SDL_RenderFillRect(gRenderer, &rect);
+            x += size;
+        }
+        if (j % 2 != 0){
+            x = 0;
+        } else {
+            x = 0;
+            x += size;
+        }
         y += size;
-        size += 15;
     }
+
 }
 
 bool init()
@@ -51,7 +58,7 @@ bool init()
     }
 
     //Create window
-    gWindow = SDL_CreateWindow( "Purple steps 3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "Checkerboard", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if( gWindow == nullptr )
     {
         std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
