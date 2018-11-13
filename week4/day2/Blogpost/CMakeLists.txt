@@ -3,4 +3,4 @@ project(Blogpost)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Blogpost main.cpp)
+add_executable(Blogpost main.cpp BlogPost.cpp BlogPost.h)
